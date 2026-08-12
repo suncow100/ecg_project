@@ -14,7 +14,7 @@ ECG 데이터 전처리 → 환자 단위 데이터 분할 → Noise Synthesis �
 
 
 ## MIT-BIH Arrhythmia Database
-PhysioNet의 MIT-BIH Arrhythmia Database를 사용했습니다.
+PhysioNet의 MIT-BIH Arrhythmia Database 사용
 
 Sampling Rate: 360 Hz
 ECG Lead: Modified Lead II (MLII)
@@ -71,8 +71,7 @@ Q:	Unknown / Paced / Other
 python train.py --optimizer adam --weight-decay 0 --scheduler none --dropout 0.3 --run-name dropout_only
 버전으로 사용하였음
 
-###### 실험 결과와 학습 parameter를 관리하기 위해 MLflow를 사용하였으며,
-
+###### 실험 결과와 학습 parameter를 관리하기 위해 MLflow 사용
 기록된 정보는 다음과 같음
 classes: N/S/V/F
 epochs: 120
@@ -85,7 +84,6 @@ dropout: 0.3
 
 ##### Metric
 train_loss, val_loss, val_f1_macro, lr, test_macro_f1
-
 
 
 ## 결과
@@ -125,4 +123,4 @@ API는 ECG 데이터를 입력으로 받아 모델의 prediction을 반환하도
 
 또한, 실행 환경의 일관성을 확보하고 배포를 쉽게 하기 위해 Docker를 사용했는데, 구조는 Main branch와 같음
 
-docker-compose up --build 로 실행하는 구조
+docker-compose up --build 로 실행
