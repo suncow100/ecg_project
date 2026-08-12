@@ -1,0 +1,77 @@
+# docker-compose.yml
+#
+# 프로젝트 루트(ecg_project/)에 위치. `docker-compose up`으로 서빙+MLflow UI+
+# 데모 3개 컨테이너를 한 번에 띄운다. training은 여기 포함하지 않는다 --
+# 학습은 상시 서비스가 아니라 실험할 때만 도는 잡이라 기본 `up`에서 빠지도록
+# profiles로 격리했다 (돌리려면 `docker-compose --profile training run training ...`).
+#
+# 볼륨: 체크포인트를 이미지에 굽지 않고 호스트의 mlruns/ 디렉토리를 그대로
+# 마운트한다. 모델이 바뀌어도(재학습) 이미지 재빌드 없이 MODEL_CHECKPOINT_PATH
+# 환경변수만 바꿔서 컨테이너를 재시작하면 된다.
+
+services:
+  serving:
+    build:
+      context: ./serving
+    container_name: ecg-serving
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./mlruns:/app/mlruns:ro   # 읽기전용 -- 서빙 컨테이너가 아티팩트를 건드릴 이유가 없음
+    environment:
+      # TODO(백선우): 재학습 후 실제 run_id로 갱신할 것.
+      # mlflow ui에서 test_macro_f1 기준 best run 확인 후 그 경로로 교체.
+      MODEL_CHECKPOINT_PATH: /app/mlruns/4/8a8aee8264d14795a4f4399bc8982bdc/artifacts/best_model.pt
+      MODEL_VERSION: 8a8aee8264d14795a4f4399bc8982bdc
+      INFERENCE_DEVICE: cpu
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      start_period: 5s
+      retries: 5
+
+  mlflow-ui:
+    build:
+      context: ./mlflow-ui
+    container_name: ecg-mlflow-ui
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/mlflow/mlruns
+      - ./mlflow.db:/mlflow/mlflow.db
+
+  demo:
+    build:
+      context: ./demo
+    container_name: ecg-demo
+    ports:
+      - "8501:8501"
+    environment:
+      # 컨테이너 내부에서는 localhost가 아니라 서비스명(serving)으로 서로를 찾는다.
+      # docker-compose가 자동으로 만들어주는 내부 DNS 덕분에 가능한 것.
+      API_URL: http://serving:8000
+    depends_on:
+      serving:
+        condition: service_healthy
+
+  training:
+    build:
+      context: ./training
+    container_name: ecg-training
+    profiles: ["training"]   # 기본 `docker-compose up`에서 제외됨
+    volumes:
+      - ./mit-bih-arrhythmia-database-1.0.0:/app/mit-bih-arrhythmia-database-1.0.0:ro
+      - ./nstdb_noise:/app/nstdb_noise:ro
+      - ./dataset:/app/dataset
+      - ./checkpoints:/app/checkpoints
+      - ./mlruns:/app/mlruns
+      - ./mlflow.db:/app/mlflow.db
+    # GPU 패스스루가 필요하면 (호스트에 nvidia-container-toolkit 설치 후) 주석 해제:
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]

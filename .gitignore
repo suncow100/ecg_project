@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment
+.env
+
+# Model weights
+*.pth
+*.pt
+
+# 원본 데이터셋 (PhysioNet에서 각자 받아야 함, 재배포 대상 아님)
+mit-bih-arrhythmia-database-1.0.0/
+nstdb_noise/
+
+# 전처리 결과물 (코드로 재생성 가능, 용량 큼)
+dataset/
+training/dataset/
+dataset.ipynb
+
+# MLflow 트래킹 DB + 아티팩트 (체크포인트 포함, 용량 큼 + 사람마다 run_id 달라짐)
+mlflow.db
+mlruns/
+
+# 체크포인트 폴더 (구조 바뀌어도 대비)
+checkpoints/
+training/checkpoints/
+
+# 테스트 캐시
+.pytest_cache/

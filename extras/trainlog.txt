@@ -1,0 +1,353 @@
+(biosignal) qortjsdn@seonwoo:~/projects/ecg_project$ python train.py --optimizer adam --weight-decay 0 --scheduler cosine --dropout 0.0 --run-name cosine_only
+[INFO] device : cuda
+[INFO] subtrain=69071 val=10320 test=21286
+[INFO] class weights: [0.28199151158332825, 7.774763584136963, 3.545011281967163, 23.209341049194336]
+[001/120] loss=0.6440 val_loss=0.6466 val_f1=0.2905 *
+[002/120] loss=0.4503 val_loss=1.2855 val_f1=0.2357 
+[003/120] loss=0.3826 val_loss=2.0658 val_f1=0.1187 
+[004/120] loss=0.3356 val_loss=0.9194 val_f1=0.2613 
+[005/120] loss=0.2908 val_loss=0.7655 val_f1=0.3056 *
+[006/120] loss=0.2814 val_loss=0.9585 val_f1=0.2393 
+[007/120] loss=0.2538 val_loss=1.0552 val_f1=0.2199 
+[008/120] loss=0.2240 val_loss=0.6983 val_f1=0.3033 
+[009/120] loss=0.2076 val_loss=0.6554 val_f1=0.2988 
+[010/120] loss=0.1807 val_loss=0.9641 val_f1=0.2438 
+[011/120] loss=0.1648 val_loss=0.7501 val_f1=0.2826 
+[012/120] loss=0.1579 val_loss=0.9436 val_f1=0.2433 
+[013/120] loss=0.1356 val_loss=0.7887 val_f1=0.2789 
+[014/120] loss=0.1371 val_loss=1.2485 val_f1=0.2203 
+[015/120] loss=0.1061 val_loss=0.9050 val_f1=0.3041 
+[016/120] loss=0.0985 val_loss=1.1245 val_f1=0.2813 
+[017/120] loss=0.1021 val_loss=0.7950 val_f1=0.3055 
+[018/120] loss=0.0942 val_loss=0.8531 val_f1=0.2944 
+[019/120] loss=0.0736 val_loss=1.0641 val_f1=0.2767 
+[020/120] loss=0.0819 val_loss=0.8404 val_f1=0.2976 
+[021/120] loss=0.0692 val_loss=1.1172 val_f1=0.2498 
+[022/120] loss=0.0587 val_loss=1.9717 val_f1=0.2096 
+[023/120] loss=0.0975 val_loss=0.9942 val_f1=0.2803 
+[024/120] loss=0.0370 val_loss=0.8491 val_f1=0.3251 *
+[025/120] loss=0.0443 val_loss=0.9603 val_f1=0.2909 
+[026/120] loss=0.0549 val_loss=1.5311 val_f1=0.2485 
+[027/120] loss=0.0887 val_loss=1.1668 val_f1=0.2801 
+[028/120] loss=0.0544 val_loss=0.9334 val_f1=0.2938 
+[029/120] loss=0.0256 val_loss=0.9562 val_f1=0.3237 
+[030/120] loss=0.0638 val_loss=1.0960 val_f1=0.2931 
+[031/120] loss=0.0338 val_loss=0.9266 val_f1=0.3229 
+[032/120] loss=0.0367 val_loss=1.2298 val_f1=0.2761 
+[033/120] loss=0.0245 val_loss=1.1615 val_f1=0.2958 
+[034/120] loss=0.0248 val_loss=1.2292 val_f1=0.2982 
+[035/120] loss=0.0439 val_loss=1.0373 val_f1=0.3087 
+[036/120] loss=0.0193 val_loss=1.2114 val_f1=0.2967 
+[037/120] loss=0.0115 val_loss=1.1952 val_f1=0.3155 
+[038/120] loss=0.0112 val_loss=1.2964 val_f1=0.3179 
+[039/120] loss=0.0921 val_loss=0.9678 val_f1=0.2753 
+[040/120] loss=0.0553 val_loss=1.1604 val_f1=0.2897 
+[041/120] loss=0.0155 val_loss=1.1645 val_f1=0.2972 
+[042/120] loss=0.0092 val_loss=1.1382 val_f1=0.3058 
+[043/120] loss=0.0060 val_loss=1.2222 val_f1=0.3121 
+[044/120] loss=0.0174 val_loss=1.2560 val_f1=0.2999 
+
+[RESULT] best epoch: 24
+[RESULT] test macro F1: 0.4006350279985172
+              precision    recall  f1-score   support
+
+           N       0.96      0.84      0.90     19009
+           S       0.15      0.23      0.18       547
+           V       0.37      0.80      0.51      1675
+           F       0.02      0.04      0.02        55
+
+    accuracy                           0.82     21286
+   macro avg       0.37      0.48      0.40     21286
+weighted avg       0.89      0.82      0.85     21286
+
+Confusion Matrix
+[[16028   713  2166   102]
+ [  341   125    77     4]
+ [  298    20  1333    24]
+ [   30     2    21     2]]
+(biosignal) qortjsdn@seonwoo:~/projects/ecg_project$ python train.py --optimizer adamw --weight-decay 1e-4 --scheduler none --dropout 0.0 --run-name adamw_only
+[INFO] device : cuda
+[INFO] subtrain=69071 val=10320 test=21286
+[INFO] class weights: [0.28199151158332825, 7.774763584136963, 3.545011281967163, 23.209341049194336]
+[001/120] loss=0.5918 val_loss=0.9533 val_f1=0.2413 *
+[002/120] loss=0.4244 val_loss=1.2063 val_f1=0.1947 
+[003/120] loss=0.3621 val_loss=0.7883 val_f1=0.2521 *
+[004/120] loss=0.3084 val_loss=0.9359 val_f1=0.2456 
+[005/120] loss=0.2926 val_loss=1.4736 val_f1=0.1779 
+[006/120] loss=0.2708 val_loss=0.8794 val_f1=0.3015 *
+[007/120] loss=0.2363 val_loss=0.8247 val_f1=0.2618 
+[008/120] loss=0.2234 val_loss=1.4214 val_f1=0.1801 
+[009/120] loss=0.1944 val_loss=0.9649 val_f1=0.2481 
+[010/120] loss=0.1769 val_loss=0.7075 val_f1=0.3151 *
+[011/120] loss=0.1603 val_loss=1.0026 val_f1=0.2518 
+[012/120] loss=0.1443 val_loss=1.2405 val_f1=0.2250 
+[013/120] loss=0.1211 val_loss=0.9810 val_f1=0.2592 
+[014/120] loss=0.1341 val_loss=0.9978 val_f1=0.3192 *
+[015/120] loss=0.1082 val_loss=1.0092 val_f1=0.2698 
+[016/120] loss=0.0793 val_loss=1.0804 val_f1=0.2522 
+[017/120] loss=0.0914 val_loss=1.0751 val_f1=0.3159 
+[018/120] loss=0.1040 val_loss=0.9910 val_f1=0.2670 
+[019/120] loss=0.0681 val_loss=0.9441 val_f1=0.2861 
+[020/120] loss=0.0710 val_loss=0.9488 val_f1=0.2711 
+[021/120] loss=0.1034 val_loss=1.2863 val_f1=0.2413 
+[022/120] loss=0.0659 val_loss=0.9856 val_f1=0.3087 
+[023/120] loss=0.0472 val_loss=0.8792 val_f1=0.3123 
+[024/120] loss=0.0572 val_loss=0.9367 val_f1=0.3128 
+[025/120] loss=0.0503 val_loss=0.9588 val_f1=0.2884 
+[026/120] loss=0.0408 val_loss=0.9706 val_f1=0.3109 
+[027/120] loss=0.0477 val_loss=1.2009 val_f1=0.2676 
+[028/120] loss=0.0623 val_loss=1.0075 val_f1=0.3447 *
+[029/120] loss=0.0362 val_loss=1.0752 val_f1=0.2917 
+[030/120] loss=0.0283 val_loss=1.2456 val_f1=0.2884 
+[031/120] loss=0.0459 val_loss=1.7961 val_f1=0.2169 
+[032/120] loss=0.0350 val_loss=1.2326 val_f1=0.3050 
+[033/120] loss=0.0460 val_loss=1.1221 val_f1=0.2980 
+[034/120] loss=0.0240 val_loss=1.1392 val_f1=0.3086 
+[035/120] loss=0.0143 val_loss=1.2709 val_f1=0.2977 
+[036/120] loss=0.0438 val_loss=1.2300 val_f1=0.2903 
+[037/120] loss=0.0445 val_loss=1.0686 val_f1=0.3107 
+[038/120] loss=0.0176 val_loss=1.1009 val_f1=0.3207 
+[039/120] loss=0.0116 val_loss=1.2708 val_f1=0.3117 
+[040/120] loss=0.0554 val_loss=1.1510 val_f1=0.3042 
+[041/120] loss=0.0305 val_loss=1.1817 val_f1=0.3089 
+[042/120] loss=0.0118 val_loss=1.3332 val_f1=0.2847 
+[043/120] loss=0.0104 val_loss=1.1717 val_f1=0.3122 
+[044/120] loss=0.0207 val_loss=1.3194 val_f1=0.2980 
+[045/120] loss=0.0093 val_loss=1.3179 val_f1=0.3067 
+[046/120] loss=0.0037 val_loss=1.4275 val_f1=0.3195 
+[047/120] loss=0.0020 val_loss=1.4080 val_f1=0.3172 
+[048/120] loss=0.0414 val_loss=1.3476 val_f1=0.2803 
+
+[RESULT] best epoch: 28
+[RESULT] test macro F1: 0.42472857332167924
+              precision    recall  f1-score   support
+
+           N       0.96      0.90      0.93     19009
+           S       0.16      0.21      0.18       547
+           V       0.48      0.77      0.59      1675
+           F       0.00      0.00      0.00        55
+
+    accuracy                           0.87     21286
+   macro avg       0.40      0.47      0.42     21286
+weighted avg       0.90      0.87      0.88     21286
+
+Confusion Matrix
+[[17045   560  1305    99]
+ [  375   113    57     2]
+ [  352    26  1283    14]
+ [   38     0    17     0]]
+(biosignal) qortjsdn@seonwoo:~/projects/ecg_project$ python train.py --optimizer adam --weight-decay 0 --scheduler none --dropout 0.3 --run-name dropout_only
+[INFO] device : cuda
+[INFO] subtrain=69071 val=10320 test=21286
+[INFO] class weights: [0.28199151158332825, 7.774763584136963, 3.545011281967163, 23.209341049194336]
+[001/120] loss=0.6302 val_loss=1.0247 val_f1=0.2404 *
+[002/120] loss=0.4303 val_loss=1.2354 val_f1=0.2678 *
+[003/120] loss=0.3817 val_loss=0.9797 val_f1=0.2222 
+[004/120] loss=0.3378 val_loss=1.0332 val_f1=0.2260 
+[005/120] loss=0.2835 val_loss=1.0347 val_f1=0.2179 
+[006/120] loss=0.2637 val_loss=0.6247 val_f1=0.3099 *
+[007/120] loss=0.2456 val_loss=0.9218 val_f1=0.2422 
+[008/120] loss=0.2386 val_loss=0.9419 val_f1=0.2508 
+[009/120] loss=0.2014 val_loss=0.8471 val_f1=0.2573 
+[010/120] loss=0.1842 val_loss=1.5030 val_f1=0.2034 
+[011/120] loss=0.1459 val_loss=1.0123 val_f1=0.2483 
+[012/120] loss=0.1390 val_loss=1.1859 val_f1=0.2676 
+[013/120] loss=0.1477 val_loss=1.1494 val_f1=0.2301 
+[014/120] loss=0.1209 val_loss=0.9917 val_f1=0.2718 
+[015/120] loss=0.1266 val_loss=0.7106 val_f1=0.3043 
+[016/120] loss=0.0864 val_loss=1.1094 val_f1=0.2541 
+[017/120] loss=0.0882 val_loss=0.6922 val_f1=0.3251 *
+[018/120] loss=0.0645 val_loss=0.8780 val_f1=0.2918 
+[019/120] loss=0.0864 val_loss=0.9681 val_f1=0.2765 
+[020/120] loss=0.0653 val_loss=1.1687 val_f1=0.2550 
+[021/120] loss=0.0775 val_loss=1.3111 val_f1=0.2390 
+[022/120] loss=0.0629 val_loss=0.8240 val_f1=0.3307 *
+[023/120] loss=0.0823 val_loss=1.0048 val_f1=0.2759 
+[024/120] loss=0.0710 val_loss=1.3723 val_f1=0.2290 
+[025/120] loss=0.0629 val_loss=0.8511 val_f1=0.2959 
+[026/120] loss=0.0367 val_loss=1.1219 val_f1=0.2799 
+[027/120] loss=0.0360 val_loss=1.2144 val_f1=0.2770 
+[028/120] loss=0.0451 val_loss=0.9281 val_f1=0.3171 
+[029/120] loss=0.0523 val_loss=0.9708 val_f1=0.3118 
+[030/120] loss=0.0261 val_loss=1.1319 val_f1=0.2859 
+[031/120] loss=0.0230 val_loss=1.0511 val_f1=0.3261 
+[032/120] loss=0.0485 val_loss=1.0723 val_f1=0.3311 *
+[033/120] loss=0.0598 val_loss=1.0740 val_f1=0.2842 
+[034/120] loss=0.0235 val_loss=1.1857 val_f1=0.3192 
+[035/120] loss=0.0483 val_loss=1.0793 val_f1=0.3111 
+[036/120] loss=0.0214 val_loss=1.0311 val_f1=0.3173 
+[037/120] loss=0.0208 val_loss=1.1119 val_f1=0.3312 *
+[038/120] loss=0.0321 val_loss=1.0605 val_f1=0.3397 *
+[039/120] loss=0.0298 val_loss=1.0015 val_f1=0.3126 
+[040/120] loss=0.0153 val_loss=1.1719 val_f1=0.3085 
+[041/120] loss=0.0116 val_loss=1.2860 val_f1=0.3027 
+[042/120] loss=0.0170 val_loss=1.0984 val_f1=0.3183 
+[043/120] loss=0.0770 val_loss=1.0168 val_f1=0.3021 
+[044/120] loss=0.0287 val_loss=1.1048 val_f1=0.2987 
+[045/120] loss=0.0103 val_loss=1.1317 val_f1=0.3096 
+[046/120] loss=0.0065 val_loss=1.2156 val_f1=0.3141 
+[047/120] loss=0.0034 val_loss=1.2093 val_f1=0.3254 
+[048/120] loss=0.0019 val_loss=1.2510 val_f1=0.3242 
+[049/120] loss=0.0014 val_loss=1.3281 val_f1=0.3188 
+[050/120] loss=0.0011 val_loss=1.3438 val_f1=0.3235 
+[051/120] loss=0.0008 val_loss=1.4226 val_f1=0.3115 
+[052/120] loss=0.0007 val_loss=1.3960 val_f1=0.3172 
+[053/120] loss=0.0006 val_loss=1.5202 val_f1=0.3060 
+[054/120] loss=0.0090 val_loss=1.5932 val_f1=0.3053 
+[055/120] loss=0.0995 val_loss=1.0075 val_f1=0.3029 
+[056/120] loss=0.0154 val_loss=1.1052 val_f1=0.3137 
+[057/120] loss=0.0060 val_loss=1.1650 val_f1=0.3155 
+[058/120] loss=0.0032 val_loss=1.2327 val_f1=0.3218 
+
+[RESULT] best epoch: 38
+[RESULT] test macro F1: 0.42714893637771284
+              precision    recall  f1-score   support
+
+           N       0.96      0.88      0.92     19009
+           S       0.11      0.24      0.15       547
+           V       0.53      0.80      0.64      1675
+           F       0.00      0.00      0.00        55
+
+    accuracy                           0.86     21286
+   macro avg       0.40      0.48      0.43     21286
+weighted avg       0.90      0.86      0.88     21286
+
+Confusion Matrix
+[[16762  1091  1088    68]
+ [  346   134    67     0]
+ [  281    41  1344     9]
+ [   31     3    21     0]]
+(biosignal) qortjsdn@seonwoo:~/projects/ecg_project$ python train.py --optimizer adamw --weight-decay 1e-4 --scheduler cosine --dropout 0.3 --run-name combined
+[INFO] device : cuda
+[INFO] subtrain=69071 val=10320 test=21286
+[INFO] class weights: [0.28199151158332825, 7.774763584136963, 3.545011281967163, 23.209341049194336]
+[001/120] loss=0.6324 val_loss=0.9457 val_f1=0.2221 *
+[002/120] loss=0.4329 val_loss=1.0738 val_f1=0.2488 *
+[003/120] loss=0.3682 val_loss=0.6583 val_f1=0.2929 *
+[004/120] loss=0.3386 val_loss=0.8550 val_f1=0.2541 
+[005/120] loss=0.2893 val_loss=0.9693 val_f1=0.2322 
+[006/120] loss=0.2789 val_loss=0.7405 val_f1=0.2774 
+[007/120] loss=0.2494 val_loss=0.8856 val_f1=0.2622 
+[008/120] loss=0.2298 val_loss=0.8337 val_f1=0.2460 
+[009/120] loss=0.2019 val_loss=0.9194 val_f1=0.2522 
+[010/120] loss=0.1901 val_loss=1.2091 val_f1=0.2103 
+[011/120] loss=0.1722 val_loss=0.7868 val_f1=0.2811 
+[012/120] loss=0.1529 val_loss=0.8491 val_f1=0.2856 
+[013/120] loss=0.1354 val_loss=1.0984 val_f1=0.2718 
+[014/120] loss=0.1250 val_loss=1.0607 val_f1=0.2543 
+[015/120] loss=0.1233 val_loss=1.2011 val_f1=0.2411 
+[016/120] loss=0.0998 val_loss=0.8701 val_f1=0.2995 *
+[017/120] loss=0.1041 val_loss=1.1961 val_f1=0.2622 
+[018/120] loss=0.0887 val_loss=1.1503 val_f1=0.2520 
+[019/120] loss=0.0718 val_loss=0.9833 val_f1=0.3032 *
+[020/120] loss=0.0660 val_loss=1.2192 val_f1=0.2610 
+[021/120] loss=0.1177 val_loss=0.9885 val_f1=0.2877 
+[022/120] loss=0.0584 val_loss=0.8747 val_f1=0.3059 *
+[023/120] loss=0.0537 val_loss=0.9461 val_f1=0.3229 *
+[024/120] loss=0.0742 val_loss=0.8647 val_f1=0.3037 
+[025/120] loss=0.0522 val_loss=0.9914 val_f1=0.2854 
+[026/120] loss=0.0422 val_loss=1.0317 val_f1=0.3028 
+[027/120] loss=0.0569 val_loss=1.0167 val_f1=0.2965 
+[028/120] loss=0.0620 val_loss=1.0259 val_f1=0.2944 
+[029/120] loss=0.0288 val_loss=0.9926 val_f1=0.3077 
+[030/120] loss=0.0420 val_loss=1.1501 val_f1=0.3185 
+[031/120] loss=0.0578 val_loss=0.9960 val_f1=0.3078 
+[032/120] loss=0.0277 val_loss=1.1274 val_f1=0.2955 
+[033/120] loss=0.0162 val_loss=1.1131 val_f1=0.2932 
+[034/120] loss=0.0296 val_loss=1.4898 val_f1=0.3020 
+[035/120] loss=0.0885 val_loss=1.3549 val_f1=0.2766 
+[036/120] loss=0.0277 val_loss=1.0813 val_f1=0.2985 
+[037/120] loss=0.0174 val_loss=1.0837 val_f1=0.2956 
+[038/120] loss=0.0155 val_loss=1.1896 val_f1=0.3018 
+[039/120] loss=0.0101 val_loss=1.2211 val_f1=0.3034 
+[040/120] loss=0.0659 val_loss=0.7597 val_f1=0.3486 *
+[041/120] loss=0.0474 val_loss=0.8977 val_f1=0.3216 
+[042/120] loss=0.0144 val_loss=0.9927 val_f1=0.3075 
+[043/120] loss=0.0101 val_loss=1.0543 val_f1=0.3170 
+[044/120] loss=0.0052 val_loss=1.1907 val_f1=0.3152 
+[045/120] loss=0.0212 val_loss=1.1593 val_f1=0.3359 
+[046/120] loss=0.0274 val_loss=1.1760 val_f1=0.3022 
+[047/120] loss=0.0277 val_loss=1.3915 val_f1=0.2840 
+[048/120] loss=0.0202 val_loss=1.1340 val_f1=0.3096 
+[049/120] loss=0.0074 val_loss=1.2434 val_f1=0.2965 
+[050/120] loss=0.0066 val_loss=1.3091 val_f1=0.3015 
+[051/120] loss=0.0085 val_loss=1.3032 val_f1=0.3031 
+[052/120] loss=0.0045 val_loss=1.2924 val_f1=0.3092 
+[053/120] loss=0.0023 val_loss=1.2968 val_f1=0.3167 
+[054/120] loss=0.0025 val_loss=1.5042 val_f1=0.2922 
+[055/120] loss=0.0490 val_loss=1.2851 val_f1=0.3364 
+[056/120] loss=0.0186 val_loss=1.1494 val_f1=0.3072 
+[057/120] loss=0.0040 val_loss=1.1834 val_f1=0.3235 
+[058/120] loss=0.0024 val_loss=1.2505 val_f1=0.3129 
+[059/120] loss=0.0016 val_loss=1.2783 val_f1=0.3177 
+[060/120] loss=0.0010 val_loss=1.2803 val_f1=0.3246 
+
+[RESULT] best epoch: 40
+[RESULT] test macro F1: 0.3943543875534227
+              precision    recall  f1-score   support
+
+           N       0.96      0.79      0.87     19009
+           S       0.14      0.32      0.20       547
+           V       0.38      0.78      0.51      1675
+           F       0.00      0.05      0.01        55
+
+    accuracy                           0.78     21286
+   macro avg       0.37      0.49      0.39     21286
+weighted avg       0.89      0.78      0.82     21286
+
+Confusion Matrix
+[[15042  1061  2052   854]
+ [  285   177    80     5]
+ [  306    29  1304    36]
+ [   33     1    18     3]]
+
+ (biosignal) qortjsdn@seonwoo:~/projects/ecg_project$ python train.py --optimizer adamw --weight-decay 1e-4 --scheduler none --dropout 0.3 --run-name adamw_dropout_no_cosine
+[INFO] device : cuda
+[INFO] subtrain=69071 val=10320 test=21286
+[INFO] class weights: [0.28199151158332825, 7.774763584136963, 3.545011281967163, 23.209341049194336]
+[001/120] loss=0.6348 val_loss=1.1474 val_f1=0.1982 *
+[002/120] loss=0.4478 val_loss=1.0149 val_f1=0.1991 *
+[003/120] loss=0.3921 val_loss=1.0075 val_f1=0.2431 *
+[004/120] loss=0.3392 val_loss=0.9364 val_f1=0.2692 *
+[005/120] loss=0.3050 val_loss=1.1960 val_f1=0.2427 
+[006/120] loss=0.2761 val_loss=0.7572 val_f1=0.2680 
+[007/120] loss=0.2643 val_loss=0.6711 val_f1=0.3560 *
+[008/120] loss=0.2350 val_loss=1.0622 val_f1=0.2409 
+[009/120] loss=0.2096 val_loss=0.8740 val_f1=0.3101 
+[010/120] loss=0.1886 val_loss=0.8187 val_f1=0.2548 
+[011/120] loss=0.1896 val_loss=1.0239 val_f1=0.2463 
+[012/120] loss=0.1544 val_loss=1.7867 val_f1=0.1611 
+[013/120] loss=0.1393 val_loss=0.8630 val_f1=0.2768 
+[014/120] loss=0.1133 val_loss=1.2176 val_f1=0.2389 
+[015/120] loss=0.1443 val_loss=0.9074 val_f1=0.2722 
+[016/120] loss=0.0939 val_loss=0.9129 val_f1=0.2688 
+[017/120] loss=0.0905 val_loss=0.8872 val_f1=0.2974 
+[018/120] loss=0.0929 val_loss=1.5545 val_f1=0.2034 
+[019/120] loss=0.1016 val_loss=0.8375 val_f1=0.2939 
+[020/120] loss=0.0740 val_loss=0.8240 val_f1=0.3145 
+[021/120] loss=0.0785 val_loss=0.9932 val_f1=0.2631 
+[022/120] loss=0.0701 val_loss=0.8656 val_f1=0.3051 
+[023/120] loss=0.0435 val_loss=1.2207 val_f1=0.2456 
+[024/120] loss=0.0712 val_loss=1.2573 val_f1=0.2459 
+[025/120] loss=0.0613 val_loss=1.0341 val_f1=0.2698 
+[026/120] loss=0.0364 val_loss=0.9899 val_f1=0.2878 
+[027/120] loss=0.0612 val_loss=1.0159 val_f1=0.2756 
+
+[RESULT] best epoch: 7
+[RESULT] test macro F1: 0.3895969798498234
+              precision    recall  f1-score   support
+
+           N       0.96      0.78      0.86     19009
+           S       0.09      0.35      0.15       547
+           V       0.43      0.72      0.54      1675
+           F       0.00      0.07      0.01        55
+
+    accuracy                           0.76     21286
+   macro avg       0.37      0.48      0.39     21286
+weighted avg       0.89      0.76      0.81     21286
+
+Confusion Matrix
+[[14868  1801  1510   830]
+ [  288   189    60    10]
+ [  361    37  1214    63]
+ [   37     1    13     4]]
