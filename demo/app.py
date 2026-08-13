@@ -1,23 +1,3 @@
-"""
-demo/app.py
-
-포트폴리오/인터뷰 시연용 대시보드. 실제 제품 아키텍처(웨어러블이 청크를
-스트리밍)와는 별개로, "신호 파일을 통째로 업로드하면 결과를 보여주는" 데모
-화면이 필요해서 분리했다.
-
-Design rationale (인터뷰용):
-- 이 앱은 serving/main.py를 직접 import하지 않고 오직 HTTP로만 통신한다.
-  즉 데모 UI가 죽어도 실제 서빙 API는 영향받지 않고, 반대로 서빙 API를
-  Docker로 배포해도 이 데모는 로컬에서 그 API를 가리키기만 하면 그대로
-  동작한다 -- 관심사 분리(demo UI vs serving API)를 코드 구조로 강제한 것.
-- 업로드된 긴 신호는 CHUNK_DURATION_SEC 단위로 잘라서 /predict를 반복
-  호출한다. 이게 실제 웨어러블이 청크를 순차 전송하는 것과 동일한 패턴이라,
-  데모 자체가 "실제 운영에서 이렇게 흐른다"를 보여주는 설명 도구도 된다.
-
-실행:
-    streamlit run demo/app.py
-"""
-
 from __future__ import annotations
 
 import io
@@ -35,7 +15,7 @@ DEFAULT_API_URL = os.environ.get("API_URL", "http://127.0.0.1:8000")
 
 st.set_page_config(page_title="ECG Arrhythmia Demo", layout="wide")
 st.title("ECG 부정맥 분류 데모")
-st.caption("실제 웨어러블 시나리오처럼, 업로드된 신호를 청크 단위로 잘라 서빙 API(/predict)에 순차 전송합니다.")
+st.caption("실제 웨어러블 기기의 상황을 가정하여, 업로드된 신호를 청크 단위로 잘라 서빙 API(/predict)에 순차 전송")
 
 # ---------------------------------------------------------------------------
 # 사이드바 설정
@@ -55,7 +35,7 @@ with st.sidebar:
             if body["model_loaded"]:
                 st.success(f"연결됨 (model_version={body['model_version']})")
             else:
-                st.warning("서버는 떠있지만 모델이 로드되지 않았습니다 (MODEL_CHECKPOINT_PATH 확인)")
+                st.warning("server on, but model is none (MODEL_CHECKPOINT_PATH 확인)")
         except requests.exceptions.RequestException as e:
             st.error(f"연결 실패: {e}")
 
@@ -150,8 +130,8 @@ if uploaded is not None:
             plot_df = pd.DataFrame({"signal": plot_signal})
             st.line_chart(plot_df, height=250)
             st.caption(
-                "표시 범위: 앞 20초만 렌더링(전체 신호 대비 성능 목적). "
-                "클래스별 beat 개수는 위 요약이 전체 업로드 신호 기준입니다."
+                "표시 범위: 앞 20초 렌더링(전체 신호 대비 성능 목적). "
+                "클래스별 beat 개수 = 위 요약 전체 업로드 신호 기준"
             )
 
             with st.expander("beat별 상세 결과 (표)"):
