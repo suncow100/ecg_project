@@ -1,38 +1,3 @@
-"""
-preprocess.py
-
-Pipeline stage: {record}_noisy.npy  -->  nk.ecg_clean()  -->  annotation-based
-beat segmentation  -->  per-beat Z-score normalization  -->  DS1/DS2 split
-                     -->  X_train/y_train/X_test/y_test.npy
-
-Design rationale (for interview writeup):
-- nk.ecg_clean() is applied ONCE, at record level, over the full-length
-  signal -- never on a per-beat basis. The neurokit-method highpass filter
-  produces edge transients; applying it to a 250-sample beat window would
-  let that transient contaminate the whole window. Filtering the full
-  ~30-minute record first confines the edge effect to the very start/end
-  of the record, far from any beat we actually extract.
-- R-peak locations for segmentation come from the WFDB .atr annotations
-  (ground truth), NOT from NeuroKit2's own R-peak detector. NeuroKit2
-  peak detection is reserved strictly for Track B (end-to-end runtime
-  evaluation) so that Track A (classifier-only) results aren't confounded
-  by our own peak-detection errors.
-- AAMI symbol->class mapping is imported from patient_split.py rather than
-  redefined here, so there is exactly one source of truth for the mappingconfig
-  used by both the split optimizer and the beat extractor.
-- Window is asymmetric: 100 samples pre-R, 150 post-R (250 total @ 360Hz
-  = ~0.69s), reflecting that the T-wave/ST segment after the R-peak carries
-  more discriminative information for this window size than the P-wave
-  before it.
-- Normalization is per-beat Z-score, computed AFTER segmentation -- each
-  250-sample window is normalized independently, not the whole record.
-
-Usage:
-    python preprocess.py
-    (requires split_config.py to already exist -- run patient_split.py first;
-     requires {record}_noisy.npy to already exist -- run build_noisy_dataset.py first)
-"""
-
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -46,8 +11,6 @@ from class_4_mapping import AAMI_CLASSES_4, SYMBOL_TO_AAMI_4
 import split_config
 
 EPS = 1e-8  # guards against divide-by-zero on flatline windows
-
-#q 관련 내용 삭제
 
 
 # ---------------------------------------------------------------------------
