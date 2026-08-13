@@ -1,21 +1,3 @@
-"""
-serving/model.py
-
-서빙 컨테이너 전용 모델 정의 + 로드 + 추론 래퍼.
-
-Design rationale (인터뷰용):
-- ResNet1D 아키텍처를 학습 코드(train 레포의 model.py)에서 import하지 않고
-  여기 복제했다. 트레이드오프를 명확히: 코드 중복이라는 단점이 있지만,
-  서빙 이미지가 학습 전용 의존성(wfdb, mlflow, sklearn 등)까지 끌고 들어오지
-  않게 하는 게 "lightweight serving image" 설계 목표에 더 부합한다고 판단.
-  더 큰 팀/장기 프로젝트라면 이 아키텍처를 별도 pip 패키지로 분리해서 학습/서빙
-  양쪽이 같은 패키지를 import하는 게 정답이지만, 포트폴리오 스코프에서는
-  과설계로 판단해 의도적으로 생략함.
-- num_classes=4로 하드코딩하지 않고 len(AAMI_CLASSES_4)에서 유도해서,
-  4-class 계약이 깨지면(예: 나중에 Q를 다시 추가하면) 이 파일이 아니라
-  schemas.py의 AAMIClass만 고치면 되도록 함.
-"""
-
 from __future__ import annotations
 
 import torch
