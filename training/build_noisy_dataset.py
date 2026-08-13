@@ -1,30 +1,3 @@
-"""
-build_noisy_dataset.py
-
-Step 3: materialize the noise-synthesized continuous ECG signal for every
-record, respecting each record's DS1/DS2 partition (via noise_synthesis's
-PartitionedNoiseInjector). Output: one .npy per record under DATASET_DIR,
-plus a JSON manifest recording which SNR / noise mixture each window got
-(for later inspection / reproducibility, and for Track B noise-condition
-breakdowns).
-
-Why windowed injection instead of one draw over the whole ~30-minute record:
-- NSTDB's train/test noise pools (after the 70/30 split) are only ~21 min /
-  ~9 min long respectively -- shorter than a full ECG record, so a single
-  contiguous draw covering the whole record isn't even possible for the
-  test partition.
-- Even if it were, using one fixed SNR/noise-mixture for an entire 30-minute
-  recording is unrealistic; real noise characteristics drift over time
-  (posture changes, activity level, electrode adhesion). Chunking gives
-  every ~10s window an independently drawn SNR and BW/MA/EM mixture.
-
-This script does NOT do R-peak detection, filtering, or segmentation --
-that's the next step, once the noisy continuous signal exists on disk.
-
-Run:
-    python build_noisy_dataset.py
-"""
-
 from __future__ import annotations
 
 import json
