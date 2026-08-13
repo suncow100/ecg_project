@@ -1,18 +1,7 @@
-"""
-config.py -- single source of truth for paths and pipeline-wide constants.
-
-Every other script imports settings from here instead of hardcoding paths
-or magic numbers. If a path changes, this is the only file to edit.
-"""
-
 from pathlib import Path
 
-# ---------------------------------------------------------------------------
-# Paths
-# ---------------------------------------------------------------------------
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
-# TODO(백선우): point these at your actual PhysioNet download locations
 MITBIH_ROOT = PROJECT_ROOT / "mit-bih-arrhythmia-database-1.0.0"
 NSTDB_ROOT = PROJECT_ROOT / "nstdb_noise"
 
@@ -21,9 +10,7 @@ DATASET_DIR = PROJECT_ROOT / "dataset"
 CHECKPOINT_DIR = PROJECT_ROOT / "checkpoints"
 LOG_DIR = PROJECT_ROOT / "logs"
 
-# ---------------------------------------------------------------------------
-# Signal
-# ---------------------------------------------------------------------------
+
 FS = 360  # Hz, MIT-BIH native sampling rate
 
 # 44 non-paced records (excludes 102, 104, 107, 217 per AAMI convention).
