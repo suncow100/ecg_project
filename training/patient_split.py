@@ -1,30 +1,3 @@
-"""
-patient_split.py
-
-MIT-BIH Arrhythmia Database -- patient(record)-level 8:2 split.
-Run this once; it writes split_config.py, which every other script imports.
-
-Why this exists (design rationale, for interview writeup):
-- Beat-level random split leaks patient-specific morphology between
-  train/test (the failure mode in most published papers).
-- The canonical de Chazal DS1/DS2 split fixes this leakage but uses a
-  22:22 (50:50) record split, which starves training of data and does
-  NOT control for per-class beat distribution. In particular record 232
-  alone holds >75% of all S-class (SVEB) beats in the whole database --
-  if 232 lands in the test half, the model essentially never sees S
-  morphology during training.
-- This script keeps the leakage-safe principle (whole records go
-  entirely to one side) but (a) targets an 8:2 overall beat-count split
-  instead of a fixed 22:22 record split, and (b) explicitly optimizes
-  for balanced per-class train/test ratios, with record 232 pinned to
-  train (see config.FORCE_TRAIN_RECORDS) so the model actually gets
-  exposure to S morphology.
-
-Usage:
-    python patient_split.py
-    (reads MITBIH_ROOT / writes SPLIT_CONFIG_PATH, both from config.py)
-"""
-
 from __future__ import annotations
 
 import random
