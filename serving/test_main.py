@@ -1,14 +1,4 @@
-"""
-serving/test_main.py
 
-pending TODO였던 "fastapi.testclient + dummy checkpoint + nk.ecg_simulate 스모크
-테스트"를 정식화. 실제 학습된 가중치가 아니라 랜덤 초기화된 체크포인트를 쓰므로
-예측 정확도는 검증하지 않는다 -- 목적은 오직 "요청 -> 전처리 -> 추론 -> 응답"
-파이프라인이 예외 없이 끝까지 도는지, 그리고 스키마 계약이 지켜지는지다.
-
-실행:
-    cd serving && pytest test_main.py -v
-"""
 
 from __future__ import annotations
 
@@ -24,8 +14,6 @@ from fastapi.testclient import TestClient
 
 @pytest.fixture(scope="session")
 def dummy_checkpoint_path(tmp_path_factory):
-    """랜덤 초기화된 ResNet1D state_dict를 임시 파일로 저장.
-    실제 정확도는 검증 대상이 아니므로 학습된 체크포인트가 필요 없다."""
     from model import ResNet1D, NUM_CLASSES
 
     path = tmp_path_factory.mktemp("ckpt") / "dummy_model.pt"
@@ -40,10 +28,6 @@ def client(dummy_checkpoint_path, monkeypatch):
     monkeypatch.setenv("MODEL_VERSION", "pytest-dummy")
     monkeypatch.setenv("INFERENCE_DEVICE", "cpu")
 
-    # config.py가 모듈 임포트 시점에 os.environ을 읽으므로, 이미 임포트된 캐시를
-    # 지워서 monkeypatch한 환경변수가 실제로 반영되게 한다. model.py/preprocessing.py도
-    # "import config"로 예전 config 모듈 객체를 들고 있을 수 있으므로 함께 무효화한다
-    # (dummy_checkpoint_path fixture가 이미 model을 한 번 import해서 캐시를 남김).
     import sys
     for mod in ("config", "model", "preprocessing", "main"):
         sys.modules.pop(mod, None)
@@ -111,7 +95,7 @@ def test_predict_rejects_chunk_shorter_than_schema_minimum(client):
 
 def test_schema_rejects_nan_signal():
     # HTTP JSON은 NaN을 표현할 수 없으므로(RFC 8259), pydantic 모델을 직접 호출해
-    # validator 동작만 확인한다.
+    # validator 동작만 확인
     from schemas import ECGChunkRequest
     from pydantic import ValidationError
 
