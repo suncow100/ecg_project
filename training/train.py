@@ -1,18 +1,4 @@
 """
-train.py
-
-Train ResNet1D ECG arrhythmia classifier (4-class: N/S/V/F).
-
-Design:
-- DS1 internal validation split (record-level) for checkpoint selection
-- DS2 untouched until final evaluation
-- Class-weighted CrossEntropyLoss
-- Optimizer / scheduler / dropout are CLI-configurable so that changes can
-  be ablated ONE AT A TIME instead of bundled together. Bundling multiple
-  regularization changes (weight decay + dropout + LR schedule) into a
-  single run makes any performance delta impossible to attribute -- this
-  script exists specifically to avoid that trap.
-
 Usage:
     # baseline: plain Adam, no weight decay, no scheduler, no dropout
     python train.py --optimizer adam --weight-decay 0 --scheduler none --dropout 0.0 --run-name baseline
